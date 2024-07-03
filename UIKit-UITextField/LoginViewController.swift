@@ -24,7 +24,13 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constants.backgroundColor
-        createUI()
+        createHelloLabel()
+        createNameTextField()
+        createEmailTextField()
+        createNumberTextField()
+        createPasswordTextField()
+        createEnterButton()
+        createHaveAccountButton()
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { (nc) in
             self.view.frame.origin.y = -200
         }
@@ -38,14 +44,16 @@ final class LoginViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    private func createUI() {
+    private func createHelloLabel() {
         helloLabel.frame = CGRect(x: 0, y: 50, width: 300, height: 40)
         helloLabel.center.x = view.center.x
         helloLabel.text = "Добро пожаловать"
         helloLabel.textAlignment = .center
         helloLabel.font = UIFont.boldSystemFont(ofSize: 25)
         view.addSubview(helloLabel)
+    }
         
+    private func createNameTextField() {
         Constants.nameImage.contentMode = .scaleAspectFit
         Constants.nameImage.frame = CGRect(origin: .zero, size: Constants.imageSize)
         Constants.nameImage.tintColor = .lightGray
@@ -60,7 +68,9 @@ final class LoginViewController: UIViewController {
         nameTextField.leftView = Constants.nameImage
         nameTextField.clearButtonMode = .whileEditing
         view.addSubview(nameTextField)
+    }
         
+    private func createEmailTextField() {
         Constants.emailImage.contentMode = .scaleAspectFit
         Constants.emailImage.frame = CGRect(origin: .zero, size: Constants.imageSize)
         Constants.emailImage.tintColor = .lightGray
@@ -75,7 +85,9 @@ final class LoginViewController: UIViewController {
         emailTextField.clearButtonMode = .whileEditing
         emailTextField.keyboardType = .emailAddress
         view.addSubview(emailTextField)
+    }
         
+    private func createNumberTextField() {
         Constants.numberImage.contentMode = .scaleAspectFit
         Constants.numberImage.frame = CGRect(origin: .zero, size: Constants.imageSize)
         Constants.numberImage.tintColor = .lightGray
@@ -90,7 +102,9 @@ final class LoginViewController: UIViewController {
         numberTextField.leftView = Constants.numberImage
         numberTextField.clearButtonMode = .whileEditing
         view.addSubview(numberTextField)
+    }
         
+    private func createPasswordTextField() {
         Constants.passwordImage.contentMode = .scaleAspectFit
         Constants.passwordImage.frame = CGRect(origin: .zero, size: Constants.imageSize)
         Constants.passwordImage.tintColor = .lightGray
@@ -106,7 +120,9 @@ final class LoginViewController: UIViewController {
         passwordTextField.leftView = Constants.passwordImage
         passwordTextField.clearButtonMode = .whileEditing
         view.addSubview(passwordTextField)
-        
+    }
+    
+    private func createEnterButton() {
         enterButton.frame = CGRect(x: 0, y: 600, width: 200, height: 50)
         enterButton.center.x = view.center.x
         enterButton.setTitle("Регистрация", for: .normal)
@@ -115,16 +131,17 @@ final class LoginViewController: UIViewController {
         enterButton.layer.cornerRadius = 15
         view.addSubview(enterButton)
         enterButton.addTarget(self, action: #selector(nextScreen), for: .touchUpInside)
+    }
         
+    private func createHaveAccountButton() {
         haveAccountButton.frame = CGRect(x: 0, y: 670, width: 200, height: 20)
         haveAccountButton.center.x = view.center.x
         haveAccountButton.setTitle("Уже есть аккаунт!", for: .normal)
         haveAccountButton.setTitleColor(.black, for: .normal)
         view.addSubview(haveAccountButton)
         haveAccountButton.addTarget(self, action: #selector(haveAccount), for: .touchUpInside)
-        
     }
-    
+        
     @objc private func nextScreen() {
         if emailTextField.text!.isEmpty || nameTextField.text!.isEmpty || numberTextField.text!.isEmpty || passwordTextField.text!.isEmpty {
             let alertController = UIAlertController(title: "Ошибка!", message: "Заполните все данные", preferredStyle: .alert)
